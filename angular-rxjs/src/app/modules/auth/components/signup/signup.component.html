@@ -1,0 +1,89 @@
+<div class="col-md-12">
+  <div class="row justify-content-md-center">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <form
+        *ngIf="authForm"
+        class="login__form"
+        [formGroup]="authForm"
+        (ngSubmit)="onSubmit(authForm.value)"
+      >
+        <div class="form-group">
+          <label for="email">{{ "auth.email" | transloco }}</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            [class.is-invalid]="email?.invalid"
+            [placeholder]="'auth.email' | transloco"
+            formControlName="email"
+          />
+
+          <div *ngIf="email?.invalid" class="invalid-feedback">
+            <div *ngIf="email.errors.required">
+              {{ "auth.email-required" | transloco }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">{{ "auth.password" | transloco }}</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            [class.is-invalid]="password?.invalid"
+            [placeholder]="'auth.password' | transloco"
+            formControlName="password"
+          />
+
+          <div *ngIf="password?.invalid" class="invalid-feedback">
+            <div *ngIf="password.errors.required">
+              {{ "auth.password-required" | transloco }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-password">{{
+            "auth.confirm-password" | transloco
+          }}</label>
+          <input
+            type="password"
+            class="form-control"
+            id="confirm-password"
+            [class.is-invalid]="confirmPassword?.invalid"
+            [placeholder]="'auth.confirm-password' | transloco"
+            formControlName="confirmPassword"
+          />
+
+          <div *ngIf="confirmPassword?.invalid" class="invalid-feedback">
+            <div *ngIf="confirmPassword.errors.required">
+              {{ "auth.confirm-password-required" | transloco }}
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary btn-block float-right"
+          [disabled]="!authForm.valid || busy.action"
+        >
+          {{ "auth.register" | transloco }}
+          <span *ngIf="busy.action" class="btn-loader"></span>
+        </button>
+
+        <button
+          type="reset"
+          class="btn btn-primary btn-block float-right"
+          [routerLink]="['/auth/log-in']"
+          [disabled]="busy.action"
+        >
+          {{ "auth.log-in" | transloco }}
+          <span *ngIf="busy.action" class="btn-loader"></span>
+        </button>
+      </form>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>

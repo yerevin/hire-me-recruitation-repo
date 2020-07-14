@@ -1,0 +1,61 @@
+<div class="row mb-3">
+  <div class="col-md-12">
+    <h4 class="float-left">
+      {{ "task.list-title" | transloco }}
+    </h4>
+    <button class="btn btn-sm btn-primary ml-4" [routerLink]="['/task/new']">
+      {{ "core.add" | transloco }}
+    </button>
+  </div>
+</div>
+
+<h4></h4>
+
+<div *ngIf="busy.load">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="loader"></div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!busy.load">
+  <div class="table-scrollable table-fixed-head">
+    <table class="table table-hover table-sm">
+      <colgroup>
+        <col width="0" />
+        <col width="15%" />
+      </colgroup>
+
+      <thead>
+        <tr>
+          <th>
+            {{ "task.name" | transloco }}
+          </th>
+          <th>
+            {{ "core.actions" | transloco }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks; trackBy: trackById">
+          <td>{{ task.name }}</td>
+          <td>
+            <button
+              class="btn btn-sm btn-primary"
+              [routerLink]="['/task/', task._id]"
+            >
+              {{ "core.edit" | transloco }}
+            </button>
+            <button
+              class="btn btn-sm btn-danger ml-2"
+              (click)="delete(task._id)"
+            >
+              {{ "core.delete" | transloco }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+{
+  "task": {
+    "name": "Nazwa",
+    "name-required": "Nazwa jest wymagana",
+    "list-title": "Zadania"
+  }
+}

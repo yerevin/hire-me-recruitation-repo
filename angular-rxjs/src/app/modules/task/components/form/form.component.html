@@ -1,0 +1,46 @@
+<div class="row justify-content-md-center">
+  <div class="col-md-2"></div>
+  <div class="col-md-6">
+    <form
+      *ngIf="taskForm"
+      class="task__form"
+      [formGroup]="taskForm"
+      (ngSubmit)="onSubmit(taskForm.value)"
+    >
+      <div class="form-group">
+        <label for="name">{{ "task.name" | transloco }}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          [class.is-invalid]="name?.invalid"
+          [placeholder]="'task.name' | transloco"
+          formControlName="name"
+        />
+
+        <div *ngIf="name?.invalid" class="invalid-feedback">
+          <div *ngIf="name.errors.required">
+            {{ "task.name-required" | transloco }}
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary float-right"
+        [disabled]="!taskForm.valid || busy.action"
+      >
+        {{ "core.save" | transloco }}
+        <span *ngIf="busy.action" class="btn-loader"></span>
+      </button>
+      <button
+        type="reset"
+        class="btn btn-default mr-2 float-right"
+        [routerLink]="['/task']"
+      >
+        {{ "core.cancel" | transloco }}
+      </button>
+    </form>
+  </div>
+  <div class="col-md-2"></div>
+</div>

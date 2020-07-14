@@ -1,0 +1,13 @@
+// to avoid 65% scale down on print
+@media screen {
+  @import './libs/bootstrap-4.min.scss';
+}
+
+@import "./libs/fontello.css";
+
+@import "./core/core.scss";
+
+@import "./modules/auth/auth.scss";
+@import "./modules/task/task.scss";
+
+@import "./libs/libs-overwrites.scss";
