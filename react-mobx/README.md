@@ -1,4 +1,4 @@
-### Simple TO DO App/Boilerplate => React + MobX | internalization (i18next), e2e
+### Simple TO DO App/Boilerplate => React + MobX | hooks based, internalization (i18next) and with e2e tests
 
 # Screens (documentation)
 
@@ -12,7 +12,7 @@ Register:
 
 Tasks list:
 
-![list-tasks](https://raw.githubusercontent.com/yerevin/hire-me-recruitation-repo/master/react-mobx/screenshots/list-tasks.png)
+![tasks-list](https://raw.githubusercontent.com/yerevin/hire-me-recruitation-repo/master/react-mobx/screenshots/tasks-list.png)
 
 Create task:
 
