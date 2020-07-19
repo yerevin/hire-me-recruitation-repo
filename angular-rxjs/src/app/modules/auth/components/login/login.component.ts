@@ -39,7 +39,7 @@ export class LoginFormComponent {
   //endregion
 
   constructor(
-    private router: Router,
+    public router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private userSessionService: UserSessionService
