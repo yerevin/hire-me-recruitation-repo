@@ -10,7 +10,7 @@ describe('Mapping', () => {
     expect(pipe).toBeTruthy();
   });
 
-  it('truncate a string if its too long (>20)', () => {
+  it('map array to single element array', () => {
     // * arrange
     const pipe = new Mapping();
     // * act
