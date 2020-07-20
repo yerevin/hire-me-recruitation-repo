@@ -27,7 +27,7 @@ export class LoginFormComponent {
     email: '',
     password: '',
   };
-  authForm: FormGroup | any = this.formBuilder.group({
+  authForm: FormGroup = this.formBuilder.group({
     email: new FormControl(this.auth.email, [Validators.required]),
     password: new FormControl(this.auth.password, [Validators.required]),
   });
@@ -42,10 +42,12 @@ export class LoginFormComponent {
     public router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private userSessionService: UserSessionService
+    public userSessionService: UserSessionService
   ) {}
 
-  onLogin(formData: ICredentials) {
+  onLogin(formData: ICredentials): void | string {
+    if (!this.authForm.valid) return 'Form not valid';
+
     this.busy.action = true;
     this.authService
       .login(formData)

@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { of } from 'rxjs';
 
-import { LoginFormComponent } from './login.component';
+import { SignupFormComponent } from './signup.component';
 import { AuthModule } from './../../module';
 import { ICredentials } from '../../interfaces/credentials.interface';
 import { AuthService } from '../../services/service';
@@ -11,23 +11,24 @@ import { TaskListComponent } from './../../../task/components/list/list.componen
 
 class FakeAuthService {
   /**
-   * Log user in
+   * Sign up user
    *
    * @returns {Observable<{ accessToken: 'string' }>}
    */
-  public login(credentials: ICredentials) {
+  public signup(credentials: ICredentials) {
     return of({ accessToken: 'string' });
   }
 }
 
-describe('LoginFormComponent', () => {
-  let fixture: ComponentFixture<LoginFormComponent>;
-  let componentInstance: LoginFormComponent;
+describe('SignupFormComponent', () => {
+  let fixture: ComponentFixture<SignupFormComponent>;
+  let componentInstance: SignupFormComponent;
   let nativeElement: HTMLElement | any;
 
-  const LOGIN_FORM_VALUE_MOCK = {
+  const REGISTER_FORM_VALUE_MOCK = {
     email: 'test@test.com',
     password: 'testtest',
+    confirmPassword: 'testtest',
   };
 
   beforeEach(async(() => {
@@ -39,7 +40,7 @@ describe('LoginFormComponent', () => {
         HttpClientModule,
         AuthModule,
       ],
-      declarations: [LoginFormComponent],
+      declarations: [SignupFormComponent],
       providers: [
         {
           provide: AuthService,
@@ -48,7 +49,7 @@ describe('LoginFormComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LoginFormComponent);
+    fixture = TestBed.createComponent(SignupFormComponent);
     componentInstance = fixture.componentInstance; // The component instantiation
     nativeElement = fixture.nativeElement; // The HTML reference
   }));
@@ -78,22 +79,32 @@ describe('LoginFormComponent', () => {
     expect(componentInstance.password?.value).toBe('testtest');
   });
 
-  it(`should onLogin return error message 'Form not valid'`, () => {
+  it(`should update confirmPassword field in form`, () => {
+    // arrange
+
+    // act
+    componentInstance.confirmPassword?.setValue('testtest');
+
+    // assert
+    expect(componentInstance.confirmPassword?.value).toBe('testtest');
+  });
+
+  it(`should onRegister return error message 'Form not valid'`, () => {
     // arrange
     const message = 'Form not valid';
 
     // act
-    const onLoginMessage = componentInstance.onLogin(
+    const onRegisterMessage = componentInstance.onRegister(
       componentInstance.authForm.value
     );
 
     // assert
-    expect(onLoginMessage).toBe(message);
+    expect(onRegisterMessage).toBe(message);
   });
 
-  it(`should onSubmit calls onLogin`, () => {
+  it(`should onSubmit calls onRegister`, () => {
     // arrange
-    const spyOnLogin = spyOn(componentInstance, 'onLogin').and.callThrough();
+    const spyOnLogin = spyOn(componentInstance, 'onRegister').and.callThrough();
 
     // act
     componentInstance.onSubmit(componentInstance.authForm.value);
@@ -102,13 +113,13 @@ describe('LoginFormComponent', () => {
     expect(spyOnLogin).toHaveBeenCalled();
   });
 
-  it(`should onLogin success call navigateByUrl to /task screen`, () => {
+  it(`should onRegister success call navigateByUrl to /task screen`, () => {
     // arrange
-    componentInstance.authForm.setValue(LOGIN_FORM_VALUE_MOCK);
+    componentInstance.authForm.setValue(REGISTER_FORM_VALUE_MOCK);
     spyOn(componentInstance.router, 'navigateByUrl').and.callThrough();
 
     // act
-    componentInstance.onLogin(componentInstance.authForm.value);
+    componentInstance.onRegister(componentInstance.authForm.value);
 
     // assert
     expect(componentInstance.router.navigateByUrl).toHaveBeenCalledWith(
@@ -116,25 +127,25 @@ describe('LoginFormComponent', () => {
     );
   });
 
-  it(`should onLogin success call userSessionService.createData`, () => {
+  it(`should onRegister success call userSessionService.createData`, () => {
     // arrange
-    componentInstance.authForm.setValue(LOGIN_FORM_VALUE_MOCK);
+    componentInstance.authForm.setValue(REGISTER_FORM_VALUE_MOCK);
     spyOn(componentInstance.userSessionService, 'createData').and.callThrough();
 
     // act
-    componentInstance.onLogin(componentInstance.authForm.value);
+    componentInstance.onRegister(componentInstance.authForm.value);
 
     // assert
     expect(componentInstance.userSessionService.createData).toHaveBeenCalled();
   });
 
-  it(`should onLogin success update a userSessionService data`, (done) => {
+  it(`should onRegister success update a userSessionService data`, (done) => {
     // arrange
-    componentInstance.authForm.setValue(LOGIN_FORM_VALUE_MOCK);
+    componentInstance.authForm.setValue(REGISTER_FORM_VALUE_MOCK);
     const mock = { accessToken: 'string' };
 
     // act
-    componentInstance.onLogin(componentInstance.authForm.value);
+    componentInstance.onRegister(componentInstance.authForm.value);
 
     // assert
     componentInstance.userSessionService.data.subscribe((data) => {
