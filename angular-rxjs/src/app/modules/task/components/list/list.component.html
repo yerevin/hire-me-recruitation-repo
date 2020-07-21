@@ -3,13 +3,11 @@
     <h4 class="float-left">
       {{ "task.list-title" | transloco }}
     </h4>
-    <button class="btn btn-sm btn-primary ml-4" [routerLink]="['/task/new']">
+    <button class="btn btn-sm btn-primary ml-4" id="addTaskBtn" [routerLink]="['/task/new']">
       {{ "core.add" | transloco }}
     </button>
   </div>
 </div>
-
-<h4></h4>
 
 <div *ngIf="busy.load">
   <div class="row">

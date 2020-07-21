@@ -20,7 +20,7 @@
           />
 
           <div *ngIf="email?.invalid" class="invalid-feedback">
-            <div *ngIf="email.errors.required">
+            <div *ngIf="email?.errors?.required">
               {{ "auth.email-required" | transloco }}
             </div>
           </div>
@@ -38,7 +38,7 @@
           />
 
           <div *ngIf="password?.invalid" class="invalid-feedback">
-            <div *ngIf="password.errors.required">
+            <div *ngIf="password?.errors?.required">
               {{ "auth.password-required" | transloco }}
             </div>
           </div>
